@@ -25,7 +25,6 @@ def send_to_other_api(questions):
             "content_id": soru.get("id"),
             "content": soru.get("text"),
             "web_url": soru.get("webUrl"),
-            "response": "test",
             "status": soru.get("status")
         }
         try:
