@@ -18,3 +18,6 @@
   * pip install -r requirements.txt (pip freeze > requirements.txt)
 * Dev: Heroku
 * Production: Heroku
+
+## AI Rules
+* There will be no Turkish content in the returned code
