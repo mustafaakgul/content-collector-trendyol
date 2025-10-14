@@ -18,20 +18,20 @@ def trendyol_get_questions(api_key, api_secret, seller_id, params):
 
     result = response.json()
 
-    print(f"Toplam soru sayısı: {result['totalElements']}")
-    print(f"Sayfa: {result['page']} / {result['totalPages']}")
+    print(f"Total questions: {result['totalElements']}")
+    print(f"Page: {result['page']} / {result['totalPages']}")
 
     questions = []
-    for soru in result['content']:
-        print(f"creationDate: {soru['creationDate']}")
-        print(f"customerId: {soru['customerId']}")
-        print(f"id: {soru['id']}")
-        print(f"Ürün: {soru['productName']}")
-        print(f"Soru: {soru['text']}")
-        print(f"Cevap: {soru.get('answer', {}).get('text', 'Cevap yok')}")
-        print(f"Durum: {soru['status']}")
-        print(f"Link: {soru['webUrl']}")
+    for question in result['content']:
+        print(f"creationDate: {question['creationDate']}")
+        print(f"customerId: {question['customerId']}")
+        print(f"id: {question['id']}")
+        print(f"Product: {question['productName']}")
+        print(f"Question: {question['text']}")
+        print(f"Answer: {question.get('answer', {}).get('text', 'No answer')}")
+        print(f"Status: {question['status']}")
+        print(f"Link: {question['webUrl']}")
         print("-" * 40)
-        questions.append(soru)
+        questions.append(question)
 
     return questions

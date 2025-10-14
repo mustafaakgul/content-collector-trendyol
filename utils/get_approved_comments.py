@@ -11,17 +11,17 @@ def get_approved_comments(API_URL):
             comments = data["payload"]
 
             if not comments:
-                print("Hiç onaylanmış yorum bulunamadı.")
+                print("No approved comments found.")
                 return
 
-            print(f"Toplam {len(comments)} onaylanmış yorum bulundu:\n")
+            print(f"Total {len(comments)} approved comments found:\n")
             for comment in comments:
                 content_id = comment.get("content_id")
                 content = comment.get("content")
                 print(f"Content ID: {content_id} | Content: {content}")
 
         else:
-            print("Beklenmeyen yanıt formatı:", data)
+            print("Unexpected response format:", data)
 
     except requests.exceptions.RequestException as e:
-        print(f"API isteği başarısız oldu: {e}")
+        print(f"API request failed: {e}")

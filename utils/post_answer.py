@@ -17,9 +17,8 @@ auth_str = f"{api_key}:{api_secret}"
 auth_bytes = auth_str.encode("utf-8")
 auth_base64 = base64.b64encode(auth_bytes).decode("utf-8")
 
-answer_text = "Test başarı ile tamamlanmıştır teşekkürler"
+answer_text = "Test has been completed successfully, thank you"
 
-# === ENDPOINT OLUŞTURMA ===
 url = BASE_URL.replace("{sellerId}", seller_id).replace("{questionId}", question_id)
 
 headers = {
