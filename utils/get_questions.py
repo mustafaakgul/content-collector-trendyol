@@ -1,7 +1,6 @@
 import requests
 import base64
 
-
 def trendyol_get_questions(api_key, api_secret, seller_id, params):
     auth_str = f"{api_key}:{api_secret}"
     auth_bytes = auth_str.encode("utf-8")

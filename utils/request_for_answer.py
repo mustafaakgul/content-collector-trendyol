@@ -1,14 +1,9 @@
 import requests
-import base64
-from datetime import datetime, timedelta
-import time
 import os
 from dotenv import load_dotenv
 import json
 
-
 load_dotenv()
-
 
 def send_to_other_api(questions):
     other_api_url = os.getenv("OTHER_API_URL", "http://127.0.0.1:8000/api/v1/comment/")
