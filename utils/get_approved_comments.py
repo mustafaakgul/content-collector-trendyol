@@ -9,16 +9,12 @@ def get_approved_comments(API_URL):
 
         if data.get("status") == "true" and "payload" in data:
             comments = data["payload"]
+            resp = []
 
             if not comments:
                 print("No approved comments found.")
                 return
-
-            print(f"Total {len(comments)} approved comments found:\n")
-            for comment in comments:
-                content_id = comment.get("content_id")
-                content = comment.get("content")
-                print(f"Content ID: {content_id} | Content: {content}")
+            return comments
 
         else:
             print("Unexpected response format:", data)

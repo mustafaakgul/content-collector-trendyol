@@ -2,39 +2,45 @@ import requests
 import base64
 import os
 
-BASE_URL = "https://apigw.trendyol.com/integration/qna/sellers/{sellerId}/questions/{questionId}/answers"
+from dotenv import load_dotenv
+
+from utils.update_status_for_answer import update_status_for_answer
+
+load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
 API_SECRET = os.getenv("API_SECRET")
 SELLER_ID = os.getenv("SELLER_ID")
+API_URL = os.getenv("TRENDYOL_POST_ANSWER_URL")
 
-seller_id = "554417"
-question_id = "355137437"
-api_key = "mDZMwneQyDYbI3DF520J"
-api_secret = "MuE0tSgYYip4qsbXzNrM"
-
-auth_str = f"{api_key}:{api_secret}"
+auth_str = f"{API_KEY}:{API_SECRET}"
 auth_bytes = auth_str.encode("utf-8")
 auth_base64 = base64.b64encode(auth_bytes).decode("utf-8")
 
-answer_text = "Test has been completed successfully, thank you"
-
-url = BASE_URL.replace("{sellerId}", seller_id).replace("{questionId}", question_id)
-
 headers = {
     "Authorization": f"Basic {auth_base64}",
-    "User-Agent": f"{seller_id} - SelfIntegration",
+    "User-Agent": f"{SELLER_ID} - SelfIntegration",
     "Content-Type": "application/json"
 }
 
-payload = {
-    "text": answer_text
-}
+def post_answer(approved_comments):
+    try:
+        for comment in approved_comments:
+            id = comment.get("id")
+            question_id = comment.get("content_id")
+            response = comment.get("response")
 
-response = requests.post(url, headers=headers, json=payload)
+            url = API_URL.replace("{sellerId}", SELLER_ID).replace("{questionId}", question_id)
 
-print("Status Code:", response.status_code)
-try:
-    print("Response Body:", response.json())
-except:
-    print("Raw Response:", response.text)
+            payload = {
+                "text": response
+            }
+
+            service_response = requests.post(url, headers=headers, json=payload)
+            if service_response.status_code == 200:
+                update_status_for_answer(id,"ANSWERED")
+            else:
+                #update_status_for_answer(id,"ANSWERED")
+                print("Status Code:", response.status_code)
+    except requests.exceptions.RequestException as e:
+        print(f"API request failed: {e}")

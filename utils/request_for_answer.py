@@ -6,7 +6,7 @@ import json
 load_dotenv()
 
 def send_to_other_api(questions):
-    other_api_url = os.getenv("OTHER_API_URL", "http://127.0.0.1:8000/api/v1/comment/")
+    API_URL = os.getenv("APPLICATION_COMMENT_API_URL")
     other_api_token = os.getenv("OTHER_API_TOKEN", "sample_token")
     headers = {
         "Content-Type": "application/json",
@@ -23,7 +23,7 @@ def send_to_other_api(questions):
             "status": question.get("status")
         }
         try:
-            response = requests.post(other_api_url, headers=headers, data=json.dumps(payload))
+            response = requests.post(API_URL, headers=headers, data=json.dumps(payload))
             if response.status_code in [200, 201]:
                 print(f"Question {payload['content_id']} sent successfully. Response: {response.status_code}")
             else:
