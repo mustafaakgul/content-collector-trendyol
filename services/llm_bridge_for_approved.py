@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 
 from utils.get_approved_comments import get_approved_comments
+from utils.post_answer import post_answer
 
 load_dotenv()
 
